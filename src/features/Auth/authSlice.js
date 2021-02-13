@@ -25,6 +25,12 @@ export const authSlice = createSlice({
     loadingUpdate: (state, action) => {
       state.loading = action.payload;
     },
+    logOut: (state) => {
+      state.userId = null;
+      state.token = null;
+      state.error = null;
+      state.loading = false;
+    },
   },
 });
 
