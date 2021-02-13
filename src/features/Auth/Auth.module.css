@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 180px;
+}
+
+h1 {
+  color: rgb(10, 51, 5, 0.8);
+}
+.form {
+  height: 60%;
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 0px;
+}
+
+.input {
+  height: 40px;
+  width: 45%;
+  min-width: 250px;
+  border-radius: 10px;
+  border: 2px solid rgb(0, 128, 0, 0.3);
+}
+
+input::placeholder {
+  font-size: 20px;
+  opacity: 1;
+  color: rgb(0, 128, 0, 0.3);
+}
+
+.form * {
+  margin-top: 15px;
+}
+
+.buttonContainer {
+  margin-top: 30px;
+}
+
+.buttonSignIn {
+  background-color: white;
+  border-color: green;
+  border-radius: 10px;
+  font-weight: 700;
+  color: rgb(10, 51, 5, 0.8);
+  height: 30px;
+  width: 14%;
+  min-width: 80px;
+  margin: 5px;
+}
+
+.buttonSignUp {
+  background-color: rgb(10, 51, 5, 0.8);
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  color: white;
+  height: 30px;
+  width: 14%;
+  min-width: 80px;
+  margin: 5px;
+}
