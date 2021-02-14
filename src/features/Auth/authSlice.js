@@ -9,22 +9,23 @@ export const authSlice = createSlice({
     loading: false,
   },
   reducers: {
+    //token to be saved
     tokenUpdate: (state, action) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
       state.token = action.payload;
     },
+    //user id to be saved
     userIdUpdate: (state, action) => {
       state.userId = action.payload;
     },
+    //if error returns message to be saved
     errorUpdate: (state, action) => {
       state.error = action.payload;
     },
+    //if loading animation to be implemented, loading status to be updated
     loadingUpdate: (state, action) => {
       state.loading = action.payload;
     },
+    //log out logic
     logOut: (state) => {
       state.userId = null;
       state.token = null;
@@ -40,10 +41,5 @@ export const {
   errorUpdate,
   loadingUpdate,
 } = authSlice.actions;
-
-// The function below is called a selector and allows us to select a value from
-// the state. Selectors can also be defined inline where they're used instead of
-// in the slice file. For example: `useSelector((state) => state.auth.value)`
-//export const selectCount = (state) => state.auth.value;
 
 export default authSlice.reducer;

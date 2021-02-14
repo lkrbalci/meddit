@@ -5,16 +5,18 @@ import {
   tokenUpdate,
   userIdUpdate,
   errorUpdate,
-  loadingUpdate,
+  //loadingUpdate,
 } from "./authSlice";
 import * as axios from "../../utils/axios-instances";
 
 const Auth = () => {
+  //not to store credentials in state or elsewhere, used useRef hooks on uname and pass areas.
   const uNameRef = useRef(null);
   const passRef = useRef(null);
 
   const dispatch = useDispatch();
 
+  //triggers on singup button click, sends credentials to firebase via REST api, then saves token and userid from response in state with dispatch
   const signUpHandler = async (event) => {
     event.preventDefault();
     const payload = {
