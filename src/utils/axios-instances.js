@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiKey = "AIzaSyAhhoR5s2hE3SjrvV_K2l9xnJfn8UjLlXk";
+const apiKey = "AIzaSyCBcp5C0NjyknIQ3wB0BwUoTokphCHRxxU";
 const projectId = "meddit-fe85c";
 
 //to be used at auth sign up calls
