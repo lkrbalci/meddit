@@ -30,6 +30,21 @@ const Auth = () => {
       .catch((error) => dispatch(errorUpdate(error.message)));
   };
 
+  const signInHandler = async (event) => {
+    event.preventDefault();
+    const payload = {
+      email: uNameRef.current.value,
+      password: passRef.current.value,
+    };
+    axios.singInInstance
+      .post("", payload)
+      .then((response) => {
+        dispatch(tokenUpdate(response.data.idToken));
+        dispatch(userIdUpdate(response.data.localId));
+      })
+      .catch((error) => dispatch(errorUpdate(error.message)));
+  };
+
   return (
     <div className={styles.container}>
       <h1>Login</h1>
@@ -47,7 +62,9 @@ const Auth = () => {
           ref={passRef}
         />
         <div className={styles.buttonContainer}>
-          <button className={styles.buttonSignIn}>SIGN IN</button>
+          <button onClick={signInHandler} className={styles.buttonSignIn}>
+            SIGN IN
+          </button>
           <button onClick={signUpHandler} className={styles.buttonSignUp}>
             SIGN UP
           </button>
