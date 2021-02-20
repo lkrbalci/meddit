@@ -1,0 +1,36 @@
+.addEntryBar {
+  margin: 30px auto;
+  height: 50px;
+  width: 900px;
+  background-color: rgb(10, 51, 5, 0.8);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  vertical-align: center;
+}
+
+#postText {
+  height: 2.8rem;
+  width: 40rem;
+  border-radius: 15px;
+  margin: 20px;
+}
+
+#postText::placeholder {
+  font-style: italic;
+  padding: 10px;
+}
+
+.icons {
+  color: white;
+  margin: 10px;
+  font-size: 2rem;
+}
+
+#linkIcon {
+  font-size: 2.8rem;
+}
+
+#addIcon {
+  margin-left: 20px;
+}
