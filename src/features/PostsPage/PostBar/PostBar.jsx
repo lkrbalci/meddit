@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./EntryBar.module.css";
+import styles from "./PostBar.module.css";
 
-const EntryBar = () => {
+const PostBar = () => {
   return (
     <div className={styles.entryBar}>
       <h4>Lorem Ipsum</h4>
@@ -24,4 +24,4 @@ const EntryBar = () => {
   );
 };
 
-export default EntryBar;
+export default PostBar;

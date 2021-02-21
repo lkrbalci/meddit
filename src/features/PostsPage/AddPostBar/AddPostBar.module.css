@@ -21,10 +21,15 @@
   padding: 10px;
 }
 
+#postText:focus {
+  outline: none;
+}
+
 .icons {
   color: white;
   margin: 10px;
   font-size: 2rem;
+  cursor: pointer;
 }
 
 #linkIcon {

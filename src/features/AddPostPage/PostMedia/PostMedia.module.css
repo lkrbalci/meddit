@@ -1,0 +1,34 @@
+.textInput {
+  display: block;
+  width: 99%;
+  margin: 10px auto;
+  padding-left: 15px;
+  border-radius: 10px;
+  border-radius: 10px;
+  border: 1px solid;
+  overflow: hidden;
+  border-color: rgb(10, 51, 5, 0.8);
+}
+
+#postLinkURLInput {
+  height: 60px;
+}
+
+#postLinkDescriptionInput {
+  height: 100px;
+  resize: vertical;
+  min-height: 100px;
+  max-height: 300px;
+  font-family: "Arial", "Times New Roman", monospace;
+  overflow-y: scroll;
+}
+
+#postLinkDescriptionInput::placeholder {
+  font-family: "Arial", "Times New Roman", monospace;
+  font-size: 15px;
+  padding-top: 5px;
+}
+
+.textInput:focus {
+  outline: none;
+}

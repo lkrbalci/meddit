@@ -99,13 +99,3 @@
 #postTitleInput:focus {
   outline: 0;
 }
-
-#wysiwyg {
-  display: block;
-  width: 99%;
-  margin: 3px auto;
-  border-radius: 10px;
-  border: 1px solid;
-  overflow: hidden;
-  border-color: rgb(10, 51, 5, 0.8);
-}
