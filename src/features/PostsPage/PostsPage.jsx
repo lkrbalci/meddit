@@ -3,7 +3,8 @@ import React from "react";
 import PostBar from "./PostBar/PostBar";
 import AddPostBar from "./AddPostBar/AddPostBar";
 
-const PostsPage = () => {
+const PostsPage = (props) => {
+  console.log(props);
   return (
     <div>
       <AddPostBar />

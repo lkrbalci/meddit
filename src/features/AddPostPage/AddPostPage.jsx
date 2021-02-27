@@ -7,9 +7,11 @@ import PostLink from "./PostLink/PostLink";
 import PostMedia from "./PostMedia/PostMedia";
 import { useLocation } from "react-router-dom";
 
-const AddEntryPage = (props) => {
+const AddPostPage = (props) => {
   const location = useLocation();
-  const [type, setType] = useState(location.state.postType);
+  const [type, setType] = useState(
+    location.state ? location.state.postType : "active"
+  );
 
   let postArea = <PostArticle />;
 
@@ -24,26 +26,61 @@ const AddEntryPage = (props) => {
       postArea = <PostLink />;
       break;
     default:
+      setType("article");
       postArea = <PostArticle />;
       break;
   }
 
+  const articleButtonClickHandler = (event) => {
+    event.preventDefault();
+    setType("article");
+    console.log(event);
+  };
+
+  const mediaButtonClickHandler = (event) => {
+    event.preventDefault();
+    setType("media");
+  };
+
+  const linkButtonClickHandler = (event) => {
+    event.preventDefault();
+    setType("link");
+  };
+
   return (
-    <div className={styles.addEntryPage}>
+    <div className={styles.addPostPage}>
       <div className={styles.title}>
         <h2>Create a post</h2>
       </div>
       <div className={styles.postContainer}>
         <div className={styles.buttonContainer}>
-          <button className={styles.button} id={styles.postButton}>
+          <button
+            className={`${styles.button} ${
+              type === "article" ? styles.active : null
+            }`}
+            id={styles.articleButton}
+            onClick={articleButtonClickHandler}
+          >
             <MdChat />
             Article
           </button>
-          <button className={styles.button} id={styles.mediaButton}>
+          <button
+            className={`${styles.button} ${
+              type === "media" ? styles.active : null
+            }`}
+            id={styles.mediaButton}
+            onClick={mediaButtonClickHandler}
+          >
             <MdOndemandVideo />
             Media
           </button>
-          <button className={styles.button} id={styles.linkButton}>
+          <button
+            className={`${styles.button} ${
+              type === "link" ? styles.active : null
+            }`}
+            id={styles.linkButton}
+            onClick={linkButtonClickHandler}
+          >
             <MdInsertLink />
             Link
           </button>
@@ -61,4 +98,4 @@ const AddEntryPage = (props) => {
   );
 };
 
-export default AddEntryPage;
+export default AddPostPage;

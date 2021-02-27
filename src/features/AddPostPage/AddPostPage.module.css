@@ -1,4 +1,4 @@
-.addEntryPage {
+.addPostPage {
   width: 80%;
   margin: 30px auto;
 }
@@ -41,6 +41,9 @@
 
 .button:focus {
   outline: 0;
+}
+
+.active {
   border-bottom: 3px solid;
   border-color: rgb(10, 51, 5, 0.8);
 }

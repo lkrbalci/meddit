@@ -7,15 +7,15 @@ const AddEntryBar = () => {
   let history = useHistory();
 
   const inputClickHandler = () => {
-    history.push({ pathname: "/addpostpage", state: { postType: "article" } });
+    history.push({ pathname: "/addpost", state: { postType: "article" } });
   };
 
   const videoIconClickHandler = () => {
-    history.push({ pathname: "/addpostpage", state: { postType: "media" } });
+    history.push({ pathname: "/addpost", state: { postType: "media" } });
   };
 
   const linkIconClickHandler = () => {
-    history.push({ pathname: "/addpostpage", state: { postType: "link" } });
+    history.push({ pathname: "/addpost", state: { postType: "link" } });
   };
 
   return (

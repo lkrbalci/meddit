@@ -4,7 +4,7 @@ import NavBar from "./features/NavBar/NavBar";
 import PostsPage from "./features/PostsPage/PostsPage";
 import AddPostPage from "./features/AddPostPage/AddPostPage";
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -18,10 +18,11 @@ function App() {
           <Route path="/posts">
             <PostsPage />
           </Route>
-          <Route path="/">
-            <AddPostPage postType="article" />
+          <Route exact path="/">
+            <PostsPage />
           </Route>
-          <Route path="/addpostpage">
+          <Route path="/myposts" render={() => <PostsPage myPosts={true} />} />
+          <Route path="/addpost">
             <AddPostPage postType="article" />
           </Route>
         </Switch>
