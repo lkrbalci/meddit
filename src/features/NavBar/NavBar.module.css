@@ -37,25 +37,28 @@
   border-radius: 2px;
 }
 
-#logoutIcon {
+#logIcon {
   float: right;
   font-size: 1.7rem;
   color: white;
   margin: 10px;
   cursor: pointer;
+  display: block;
 }
 
-/* When the screen is less than 600px wide, stack the links and the search field vertically instead of horizontally */
-@media screen and (max-width: 600px) {
+/* When the screen is less than 650px wide, stack the links and the search field vertically instead of horizontally */
+@media screen and (max-width: 650px) {
+  .navBar #logIcon,
   .navBar a,
   .navBar input[type="text"] {
-    float: none;
+    float: left;
     display: block;
     text-align: left;
     width: 100%;
     margin: 0;
-    padding: 14px;
+    padding: 3px;
   }
+
   .navBar input[type="text"] {
     border: 1px solid #ccc;
   }

@@ -4,7 +4,6 @@ import PostBar from "./PostBar/PostBar";
 import AddPostBar from "./AddPostBar/AddPostBar";
 
 const PostsPage = (props) => {
-  console.log(props);
   return (
     <div>
       <AddPostBar />
