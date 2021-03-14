@@ -2,7 +2,16 @@ import React from "react";
 import styles from "./PostArticle.module.css";
 import SunEditor from "suneditor-react";
 
-const PostArticle = () => {
+const PostArticle = (props) => {
+  let data = {
+    article: "",
+  };
+
+  const editorChangeHandler = (event) => {
+    data.article = event;
+    props.postDataGetter(data);
+  };
+
   const editorOptions = {
     height: "300px",
     placeholder: "Article text here",
@@ -11,7 +20,7 @@ const PostArticle = () => {
   return (
     <div className={styles.container}>
       <div id={styles.wysiwyg}>
-        <SunEditor setOptions={editorOptions} />
+        <SunEditor setOptions={editorOptions} onChange={editorChangeHandler} />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiKey = "AIzaSyCBcp5C0NjyknIQ3wB0BwUoTokphCHRxxU";
-const projectId = "meddit-fe85c";
+//const projectId = "meddit-fe85c";
 
 //to be used at auth sign up calls
 export const signUpInstance = axios.create({
@@ -18,5 +18,6 @@ export const singInInstance = axios.create({
 
 //to be used at db query calls
 export const queryInstance = axios.create({
-  baseURL: "https://" + projectId + ".firebaseio.com/users/jack/name.json",
+  baseURL:
+    "https://meddit-fe85c-default-rtdb.europe-west1.firebasedatabase.app/",
 });
