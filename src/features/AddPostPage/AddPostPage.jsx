@@ -146,7 +146,7 @@ const AddPostPage = (props) => {
         type,
       });
       axios.queryInstance
-        .post("posts.json", postData)
+        .post(`posts.json?auth=${window.localStorage.token}`, postData)
         .then((response) => console.log(response))
         .catch((error) => console.log(error, error.message))
         .then(() => {

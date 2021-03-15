@@ -12,13 +12,18 @@ const PostsPage = (props) => {
   useEffect(() => {
     axios.queryInstance
       .get(
-        `posts.json?orderBy="time"&limitToFirst=6&print=pretty&auth=${window.localStorage.token}`
+        `posts.json?orderBy="time"&startAt=5&print=pretty&auth=${window.localStorage.token}`
       )
       .then((response) => {
         const postArray = [];
         Object.keys(response.data).forEach((key) => {
           postArray.push({ id: key, ...response.data[key] });
         });
+        console.log(postArray);
+        postArray.sort((a, b) => {
+          return b.time - a.time;
+        });
+        console.log(postArray);
         setPosts(postArray);
       })
       .catch((error) => console.log(error.message));

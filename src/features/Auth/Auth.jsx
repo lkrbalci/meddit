@@ -54,8 +54,9 @@ const Auth = () => {
   const signInHandler = async (event) => {
     event.preventDefault();
     const payload = {
-      email: uNameRef.current.value,
+      email: uMailRef.current.value,
       password: passRef.current.value,
+      returnSecureToken: true,
     };
     axios.singInInstance
       .post("", payload)
