@@ -8,12 +8,15 @@ import {
   //loadingUpdate,
 } from "./authSlice";
 import * as axios from "../../utils/axios-instances";
+import { useHistory } from "react-router-dom";
 
 const Auth = () => {
   //not to store credentials in state or elsewhere, used useRef hooks on uname and pass areas.
   const uNameRef = useRef(null);
   const passRef = useRef(null);
   const uMailRef = useRef(null);
+
+  const history = useHistory();
 
   const dispatch = useDispatch();
   // const stateUserId = useSelector((state) => state.userId);
@@ -47,6 +50,7 @@ const Auth = () => {
         window.localStorage.setItem("token", response.data.idToken);
         dispatch(tokenUpdate(response.data.idToken));
         dispatch(userIdUpdate(response.data.localId));
+        history.push("/");
       })
       .catch((error) => console.log(error.message, "main")); //dispatch(errorUpdate(error.message)));
   };
@@ -65,6 +69,7 @@ const Auth = () => {
         dispatch(userIdUpdate(response.data.localId));
         window.localStorage.setItem("userId", response.data.localId);
         window.localStorage.setItem("token", response.data.idToken);
+        history.push("/");
       })
       .then({
         //get username from database

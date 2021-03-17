@@ -26,7 +26,13 @@ const PostsPage = (props) => {
         console.log(postArray);
         setPosts(postArray);
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        if (error.response.data.error === "Auth token is expired") {
+          window.localStorage.removeItem("token");
+          window.localStorage.removeItem("userId");
+          window.location.reload();
+        }
+      });
   }, []);
 
   return (

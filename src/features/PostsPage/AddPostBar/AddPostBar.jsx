@@ -20,7 +20,11 @@ const AddEntryBar = () => {
 
   return (
     <div className={styles.addEntryBar}>
-      <MdAddBox className={styles.icons} id={styles.addIcon} />
+      <MdAddBox
+        className={styles.icons}
+        onClick={inputClickHandler}
+        id={styles.addIcon}
+      />
       <input
         type="text"
         onClick={inputClickHandler}
