@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./Auth.module.css";
 import { useDispatch } from "react-redux";
 import {
@@ -7,14 +7,17 @@ import {
   errorUpdate,
   //loadingUpdate,
 } from "./authSlice";
+import UNamePopUp from "./UNamePopUp/UNamePopUp";
 import * as axios from "../../utils/axios-instances";
 import { useHistory } from "react-router-dom";
 
 const Auth = () => {
   //not to store credentials in state or elsewhere, used useRef hooks on uname and pass areas.
-  const uNameRef = useRef(null);
   const passRef = useRef(null);
   const uMailRef = useRef(null);
+
+  //to be used for sing upnickname set
+  const [openPopUp, setOpenPopUp] = useState(false);
 
   const history = useHistory();
 
@@ -23,36 +26,11 @@ const Auth = () => {
   //const stateUserName = useSelector((state) => state.userName);
 
   //triggers on singup button click, sends credentials to firebase via REST api, then saves token and userid from response in state with dispatch
-  const signUpHandler = async (event) => {
+  const signUpHandler = (event) => {
     event.preventDefault();
-    const payload = {
-      email: uMailRef.current.value,
-      password: passRef.current.value,
-    };
-    axios.signUpInstance
-      .post("", payload)
-      .then((response) => {
-        // add user to real time database with username
-        let data = JSON.stringify({
-          [response.data.localId]: {
-            userMail: uMailRef.current.value,
-            userId: uNameRef.current.value,
-          },
-        });
-        console.log(data);
-        axios.queryInstance
-          .patch(`users.json`, data)
-          .then((response) => console.log(response, "user to database respond"))
-          .catch((error) =>
-            console.log(error.message, "user to database error")
-          );
-        window.localStorage.setItem("userId", response.data.localId);
-        window.localStorage.setItem("token", response.data.idToken);
-        dispatch(tokenUpdate(response.data.idToken));
-        dispatch(userIdUpdate(response.data.localId));
-        history.push("/");
-      })
-      .catch((error) => console.log(error.message, "main")); //dispatch(errorUpdate(error.message)));
+    if (uMailRef.current.value && passRef.current.value) {
+      setOpenPopUp(true);
+    }
   };
 
   const signInHandler = async (event) => {
@@ -77,6 +55,10 @@ const Auth = () => {
       .catch((error) => dispatch(errorUpdate(error.message)));
   };
 
+  const closeClickHandler = () => {
+    setOpenPopUp(false);
+  };
+
   return (
     <div className={styles.container}>
       <h1>Login</h1>
@@ -86,12 +68,6 @@ const Auth = () => {
           type="text"
           placeholder="e-mail"
           ref={uMailRef}
-        />
-        <input
-          className={styles.input}
-          type="text"
-          placeholder="user name"
-          ref={uNameRef}
         />
         <input
           className={styles.input}
@@ -107,6 +83,15 @@ const Auth = () => {
             SIGN UP
           </button>
         </div>
+        {openPopUp ? (
+          <UNamePopUp
+            credentials={{
+              email: uMailRef.current.value,
+              password: passRef.current.value,
+            }}
+            closeClickHandler={closeClickHandler}
+          />
+        ) : null}
       </form>
     </div>
   );

@@ -7,6 +7,13 @@ import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const userId = useSelector((state) => state.auth.userId);
+
+  const logOutClickHandler = () => {
+    window.localStorage.removeItem("userId");
+    window.localStorage.removeItem("token");
+    window.location.reload();
+  };
+
   return (
     <div className={styles.navBar}>
       <NavLink style={{ padding: "6px", marginTop: "0px" }} to="/">
@@ -38,7 +45,7 @@ const NavBar = () => {
       )}
       <input type="text" placeholder="Search.."></input>
       {userId ? (
-        <RiLogoutCircleRLine id={styles.logIcon} />
+        <RiLogoutCircleRLine onClick={logOutClickHandler} id={styles.logIcon} />
       ) : (
         <RiLoginCircleLine id={styles.logIcon} />
       )}

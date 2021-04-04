@@ -102,3 +102,7 @@
 #postTitleInput:focus {
   outline: 0;
 }
+
+#validation {
+  color: red !important;
+}

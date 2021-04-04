@@ -17,7 +17,6 @@ const AddPostPage = (props) => {
   //get data from child components
   const getPostData = (getterData) => {
     Object.assign(postData, getterData);
-    console.log(postData);
   };
 
   //location hook helps to get paramaters via route. here with paramaters post type will be decided.
@@ -29,7 +28,12 @@ const AddPostPage = (props) => {
   );
 
   //if empty data on postData object validator messages will be seen at bottom
-  const [validators, setValidators] = useState(null);
+  const [validators, setValidators] = useState({
+    articleEmpty: false,
+    descriptionEmpty: false,
+    titleEmpty: false,
+    urlEmpty: false,
+  });
 
   //decide post area, default valiu set
   let postArea = <PostArticle postDataGetter={getPostData} />;
@@ -53,21 +57,40 @@ const AddPostPage = (props) => {
   //change post type with buttons
   const articleButtonClickHandler = (event) => {
     event.preventDefault();
+    setValidators({
+      articleEmpty: false,
+      descriptionEmpty: false,
+      titleEmpty: false,
+      urlEmpty: false,
+    });
     setType("article");
   };
 
   const mediaButtonClickHandler = (event) => {
     event.preventDefault();
+    setValidators({
+      articleEmpty: false,
+      descriptionEmpty: false,
+      titleEmpty: false,
+      urlEmpty: false,
+    });
     setType("media");
   };
 
   const linkButtonClickHandler = (event) => {
     event.preventDefault();
+    setValidators({
+      articleEmpty: false,
+      descriptionEmpty: false,
+      titleEmpty: false,
+      urlEmpty: false,
+    });
     setType("link");
   };
 
   //when title input changed (typed smth) value to be added to postData obj
   const titleChangeHandler = (event) => {
+    console.log(postData);
     Object.assign(postData, {
       title: event.target.value,
     });
@@ -79,46 +102,109 @@ const AddPostPage = (props) => {
       let validate = true;
 
       if (!postData.title) {
-        setValidators(validators.concat(<p>title is empty :(</p>));
+        setValidators((prevState) => ({
+          ...prevState,
+          titleEmpty: true,
+        }));
         validate = false;
       }
       switch (type) {
         case "article":
           if (!postData.article) {
-            setValidators(validators.concat(<p>article field is empty :(</p>));
+            setValidators((prevState) => ({
+              ...prevState,
+              articleEmpty: true,
+            }));
             validate = false;
+          } else {
+            setValidators((prevState) => ({
+              ...prevState,
+              articleEmpty: false,
+            }));
+            if (postData.title) {
+              validate = true;
+            }
           }
           break;
         case "media":
           if (!postData.url) {
-            setValidators(validators.concat(<p>URL field is empty :(</p>));
+            setValidators((prevState) => ({
+              ...prevState,
+              urlEmpty: true,
+            }));
             validate = false;
+          } else {
+            setValidators((prevState) => ({
+              ...prevState,
+              urlEmpty: false,
+            }));
+            if (postData.title && postData.description) {
+              validate = true;
+            }
           }
           if (!postData.description) {
-            setValidators(
-              validators.concat(
-                <p id={styles.optional}>some description could be good :/</p>
-              )
-            );
+            setValidators((prevState) => ({
+              ...prevState,
+              descriptionEmpty: true,
+            }));
+            validate = false;
+          } else {
+            setValidators((prevState) => ({
+              ...prevState,
+              descriptionEmpty: false,
+            }));
+            if (postData.title && postData.url) {
+              validate = true;
+            }
           }
           break;
         case "link":
           if (!postData.url) {
-            setValidators(validators.concat(<p>URL field is empty :(</p>));
+            setValidators((prevState) => ({
+              ...prevState,
+              urlEmpty: true,
+            }));
             validate = false;
+          } else {
+            setValidators((prevState) => ({
+              ...prevState,
+              urlEmpty: false,
+            }));
+            if (postData.title && postData.url) {
+              validate = true;
+            }
           }
           if (!postData.description) {
-            setValidators(
-              validators.concat(
-                <p id={styles.optional}>some description could be good :/</p>
-              )
-            );
+            setValidators((prevState) => ({
+              ...prevState,
+              descriptionEmpty: true,
+            }));
+            validate = false;
+          } else {
+            setValidators((prevState) => ({
+              ...prevState,
+              descriptionEmpty: false,
+            }));
+            if (postData.title && postData.url) {
+              validate = true;
+            }
           }
           break;
         default:
           if (!postData.article) {
-            setValidators(validators.concat(<p>article field is empty :(</p>));
+            setValidators((prevState) => ({
+              ...prevState,
+              articleEmpty: true,
+            }));
             validate = false;
+          } else {
+            setValidators((prevState) => ({
+              ...prevState,
+              articleEmpty: false,
+            }));
+            if (postData.title) {
+              validate = true;
+            }
           }
           break;
       }
@@ -212,7 +298,12 @@ const AddPostPage = (props) => {
           POST
         </button>
       </div>
-      <div id={styles.validation}>{validators}</div>
+      <div id={styles.validation}>
+        {validators.titleEmpty ? <p>Title is required!</p> : null}
+        {validators.articleEmpty ? <p>Article text is required!</p> : null}
+        {validators.urlEmpty ? <p>URL is requred!</p> : null}
+        {validators.descriptionEmpty ? <p>Description is requred!</p> : null}
+      </div>
     </div>
   );
 };
