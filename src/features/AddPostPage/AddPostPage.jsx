@@ -5,6 +5,7 @@ import { MdOndemandVideo, MdInsertLink, MdChat } from "react-icons/md";
 import PostArticle from "./PostArticle/PostArticle";
 import PostLink from "./PostLink/PostLink";
 import PostMedia from "./PostMedia/PostMedia";
+import ValidatorMessages from "./ValidatorMessages/ValidatorMessages"
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import * as axios from "../../utils/axios-instances";
@@ -28,12 +29,12 @@ const AddPostPage = (props) => {
   );
 
   //if empty data on postData object validator messages will be seen at bottom
-  const [validators, setValidators] = useState({
+  let validators = {
     articleEmpty: false,
     descriptionEmpty: false,
     titleEmpty: false,
     urlEmpty: false,
-  });
+  };
 
   //decide post area, default valiu set
   let postArea = <PostArticle postDataGetter={getPostData} />;
@@ -57,34 +58,34 @@ const AddPostPage = (props) => {
   //change post type with buttons
   const articleButtonClickHandler = (event) => {
     event.preventDefault();
-    setValidators({
+    validators = {
       articleEmpty: false,
       descriptionEmpty: false,
       titleEmpty: false,
       urlEmpty: false,
-    });
+    };
     setType("article");
   };
 
   const mediaButtonClickHandler = (event) => {
     event.preventDefault();
-    setValidators({
+    validators = {
       articleEmpty: false,
       descriptionEmpty: false,
       titleEmpty: false,
       urlEmpty: false,
-    });
+    };
     setType("media");
   };
 
   const linkButtonClickHandler = (event) => {
     event.preventDefault();
-    setValidators({
+    validators = {
       articleEmpty: false,
       descriptionEmpty: false,
       titleEmpty: false,
       urlEmpty: false,
-    });
+    };
     setType("link");
   };
 
@@ -102,25 +103,16 @@ const AddPostPage = (props) => {
       let validate = true;
 
       if (!postData.title) {
-        setValidators((prevState) => ({
-          ...prevState,
-          titleEmpty: true,
-        }));
+        validators.titleEmpty = true;
         validate = false;
       }
       switch (type) {
         case "article":
           if (!postData.article) {
-            setValidators((prevState) => ({
-              ...prevState,
-              articleEmpty: true,
-            }));
+            validators.articleEmpty = true;
             validate = false;
           } else {
-            setValidators((prevState) => ({
-              ...prevState,
-              articleEmpty: false,
-            }));
+            validators.articleEmpty = false;
             if (postData.title) {
               validate = true;
             }
@@ -128,31 +120,19 @@ const AddPostPage = (props) => {
           break;
         case "media":
           if (!postData.url) {
-            setValidators((prevState) => ({
-              ...prevState,
-              urlEmpty: true,
-            }));
+            validators.urlEmpty = true;
             validate = false;
           } else {
-            setValidators((prevState) => ({
-              ...prevState,
-              urlEmpty: false,
-            }));
+            validators.urlEmpty = false;
             if (postData.title && postData.description) {
               validate = true;
             }
           }
           if (!postData.description) {
-            setValidators((prevState) => ({
-              ...prevState,
-              descriptionEmpty: true,
-            }));
+            validators.descriptionEmpty = true;
             validate = false;
           } else {
-            setValidators((prevState) => ({
-              ...prevState,
-              descriptionEmpty: false,
-            }));
+            validators.descriptionEmpty = false;
             if (postData.title && postData.url) {
               validate = true;
             }
@@ -160,31 +140,19 @@ const AddPostPage = (props) => {
           break;
         case "link":
           if (!postData.url) {
-            setValidators((prevState) => ({
-              ...prevState,
-              urlEmpty: true,
-            }));
+            validators.urlEmpty = true;
             validate = false;
           } else {
-            setValidators((prevState) => ({
-              ...prevState,
-              urlEmpty: false,
-            }));
+            validators.urlEmpty = false;
             if (postData.title && postData.url) {
               validate = true;
             }
           }
           if (!postData.description) {
-            setValidators((prevState) => ({
-              ...prevState,
-              descriptionEmpty: true,
-            }));
+            validators.descriptionEmpty = true;
             validate = false;
           } else {
-            setValidators((prevState) => ({
-              ...prevState,
-              descriptionEmpty: false,
-            }));
+            validators.descriptionEmpty = false;
             if (postData.title && postData.url) {
               validate = true;
             }
@@ -192,16 +160,10 @@ const AddPostPage = (props) => {
           break;
         default:
           if (!postData.article) {
-            setValidators((prevState) => ({
-              ...prevState,
-              articleEmpty: true,
-            }));
+            validators.articleEmpty = true;
             validate = false;
           } else {
-            setValidators((prevState) => ({
-              ...prevState,
-              articleEmpty: false,
-            }));
+            validators.articleEmpty = false;
             if (postData.title) {
               validate = true;
             }
@@ -298,12 +260,13 @@ const AddPostPage = (props) => {
           POST
         </button>
       </div>
-      <div id={styles.validation}>
+      <ValidatorMessages {...validators} />
+      {/* <div id={styles.validation}>
         {validators.titleEmpty ? <p>Title is required!</p> : null}
         {validators.articleEmpty ? <p>Article text is required!</p> : null}
         {validators.urlEmpty ? <p>URL is requred!</p> : null}
         {validators.descriptionEmpty ? <p>Description is requred!</p> : null}
-      </div>
+      </div> */}
     </div>
   );
 };
